@@ -11,3 +11,4 @@ test('gets Intern information',() => {
 
     expect(employee.getSchool()).toBe()
     expect(employee.getRole()).toBe('Intern')
+});
