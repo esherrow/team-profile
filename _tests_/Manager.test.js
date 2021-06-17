@@ -1,13 +1,15 @@
 const Manager = require('../lib/Manager');
+const Employee = require('../lib/Employee');
 
 test('creates an Manager object',() => {
     const employee = new Employee ('Mary Sue');
+    employee.officeNumber = "114B";
 
-    expect(employee.officeNumber).toBe(expect.any(String));
+    expect(employee.officeNumber).toEqual(expect.any(String));
 });
 
 test('gets Manager information',() => {
-    const employee = new Employee('Mary Sue')
+    const employee = new Manager('Mary Sue')
 
     expect(employee.getRole()).toBe('Manager')
 });
