@@ -2,7 +2,7 @@ const Intern = require('../lib/Intern');
 const Employee = require('../lib/Employee');
 
 test('creates an Intern object',() => {
-    const employee = new Employee ('Mary Sue');
+    const employee = new Employee ('Mary Sue', 9999, 'marysue@good.email');
     employee.school ="Butler"
 
     expect(employee.school).toEqual(expect.any(String));

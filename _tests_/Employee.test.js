@@ -9,7 +9,7 @@ test('creates an employee object',() => {
 });
 
 test('gets employee information',() => {
-    const employee = new Employee('Mary Sue')
+    const employee = new Employee('Mary Sue', 9999, 'marysue@good.email')
 
     expect(employee.getName()).toEqual(employee.name);
     expect(employee.getId()).toEqual(employee.id);
