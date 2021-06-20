@@ -13,7 +13,7 @@
   * [Contributing](#contributing)
     
   # Installation
-  npm install inquirer
+  npm install inquirer, 
   npm install jest --save-dev
   
   # Usage
