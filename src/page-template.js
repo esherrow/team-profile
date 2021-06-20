@@ -14,10 +14,12 @@ const generateManager = employeeArr=>{
             </div>
         </div>
     </div>`
-    })
-};
+  })
+}
+;
 
 const generateEngineer = employeeArr=>{
+    console.log(employeeArr)
     employeeArr.filter(employee=>employee.role==='Engineer')
     .map(({name, id, email, role, github})=> {
     return`
@@ -57,7 +59,8 @@ const generateIntern = employeeArr=>{
 };
 
 module.exports = employeeDb => {
-    const {name, id, email, role, special} = employeeDb;
+    //const [name, id, email, role, special] = employeeDb;
+    //console.log(employeeDb[0]);
     return`
     <!DOCTYPE html>
     <html lang="en">
@@ -81,9 +84,9 @@ module.exports = employeeDb => {
         </header>
 
         <main class="row g-4">
-            ${generateManager(name, id, email, role, special)}
-            ${generateEngineer(name, id, email, role, special)}
-            ${generateIntern(name, id, email, role, special)}
+            ${generateManager(employeeDb)}
+            ${generateEngineer(employeeDb)}
+            ${generateIntern(employeeDb)}
         </main>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">

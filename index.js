@@ -102,59 +102,73 @@ const getIntern = () => {
 
 function addTeam() {
     confirmAdd().then(answer => {
-        if (answer.confirmNew) {
-            getNewEmployee().then(answer => {
-                if (answer.newEmployee === 'Engineer') {
-                    getTeam().then(employeeAnswer => {
-                        getEngineer().then(engineerAnswer => {
-                            const engineer = new Engineer(employeeAnswer.name, employeeAnswer.id, employeeAnswer.email, engineerAnswer.role, engineerAnswer.github, )
-                            employeeDb.push(engineer)
-                            addTeam()
-                        })
-                    })
+                if (answer.confirmNew) {
+                    getNewEmployee().then(answer => {
+                        if (answer.newEmployee === 'Engineer') {
+                            getTeam().then(employeeAnswer => {
+                                getEngineer().then(engineerAnswer => {
+                                    const engineer = new Engineer(employeeAnswer.name, employeeAnswer.id, employeeAnswer.email, engineerAnswer.role, engineerAnswer.github, )
+                                    employeeDb.push(engineer)
+                                    addTeam()
+                                })
+                            })
 
-                } else {
-                    getTeam().then(employeeAnswer => {
-                        getIntern().then(internAnswer => {
-                            const intern = new Intern(employeeAnswer.name, employeeAnswer.id, employeeAnswer.email, internAnswer.role, internAnswer.school, )
-                            employeeDb.push(intern)
-                            addTeam()
-                        })
-                    })
+                        } else {
+                            getTeam().then(employeeAnswer => {
+                                getIntern().then(internAnswer => {
+                                    const intern = new Intern(employeeAnswer.name, employeeAnswer.id, employeeAnswer.email, internAnswer.role, internAnswer.school, )
+                                    employeeDb.push(intern)
+                                    addTeam()
+                                })
+                            })
 
-                }
-            })
-        } else {
-            //console.log(employeeDb);
-            generatePage(employeeDb)
-            .then(newHTML => {
-                return new Promise((resolve,reject)=>{
-                    fs.writeFile('./dist/index.html', newHTML, err =>{
-                        if (err){
-                            reject(err);
-                            return;
                         }
-                        resolve({
-                            ok:true,
-                            message: 'File created!'
+                    })
+                } else {
+                    //console.log(employeeDb);
+                    generatePage().then(newHTML=>{
+                        fs.writeFile('./dist/index.html', newHTML, (err) => {
+                                    if (err) {
+                                        reject(err);
+                                        return;
+                                    }
+                                    resolve({
+                                        ok: true,
+                                        message: 'File created!'
+                                    })
+                                })
+                    });
+                }
+    })
+    // .then(newHTML => {
+    //     console.log(newHTML)
+    //             // return new Promise((resolve, reject) => {
+    //             //     fs.writeFile('./dist/index.html', newHTML, (err) => {
+    //             //         if (err) {
+    //             //             reject(err);
+    //             //             return;
+    //             //         }
+    //             //         resolve({
+    //             //             ok: true,
+    //             //             message: 'File created!'
+    //             //         })
+    //             //     })
+    //             // })
+    // })
+    .catch(err => {
+                console.log(err)
+            })
+
+        };
+function addTeamMember() {
+                getTeam()
+                    .then(answers => {
+                        getManager().then(manageAnswer => {
+                            const manager = new Manager(answers.name, answers.id, answers.email, answers.role, manageAnswer.officeNumber)
+                            employeeDb.push(manager);
+                            addTeam();
                         })
                     })
-            })}
-        )
-    }})
-    .catch(err => {
-    console.log(err)})
-}
+            };
 
-function addTeamMember() {
-    getTeam()
-        .then(answers => {
-            getManager().then(manageAnswer => {
-                const manager = new Manager(answers.name, answers.id, answers.email,answers.role, manageAnswer.officeNumber)
-                employeeDb.push(manager);
-                addTeam();
-            })
-        })
-};
-
-addTeamMember();
+            addTeamMember();
